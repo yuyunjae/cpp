@@ -1,26 +1,32 @@
-NAME = megaphone
-CC = g++
-FLAGS = -std=c++98 -Wall -Wextra -Werror # test시에는 c++14같은거로 해야할듯?
-SRCS = megaphone.cpp
-
+.DEFAULT_GOAL := all
+CPP = c++
+CPPFLAGS = -std=c++98 -Wall -Wextra -Werror -MMD -MP
+NAME = PhoneBook
+SRCS = PhoneBook.cpp \
+		Contact.cpp \
+		main.cpp
 OBJS = $(SRCS:.cpp=.o)
+DEPS = $(SRCS:.cpp=.d)
 
-all: $(NAME)
+-include $(DEPS)
+
+all :
+	@make $(NAME)
 
 $(NAME) : $(OBJS)
-	$(CC) $(FLAGS) $(OBJS) -o $@
+	$(CPP) $(CPPFLAGS) $(OBJS) -o $@
 
 %.o : %.cpp
-	$(CC) $(FLAGS) -c $< -o $@	
+	$(CPP) $(CPPFLAGS) -c $< -o $@
 
 clean :
-	rm -rf $(OBJS)
+	rm -rf $(OBJS) $(DEPS)
 
 fclean :
-	rm -rf $(OBJS) $(NAME)
+	rm -rf $(OBJS) $(DEPS) $(NAME)
 
 re :
 	@make fclean
 	@make all
 
-.PHONY : clean fclean all re
+.PHONY: all clean fclean re

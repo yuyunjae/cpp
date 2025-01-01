@@ -1,8 +1,8 @@
-.DEFAULT_GOAL := all
+v.DEFAULT_GOAL := all
 CPP = c++
 CPPFLAGS = -std=c++98 -Wall -Wextra -Werror -MMD -MP
-NAME = megaphone
-SRCS = megaphone.cpp
+NAME =
+SRCS =
 OBJS = $(SRCS:.cpp=.o)
 DEPS = $(SRCS:.cpp=.d)
 
