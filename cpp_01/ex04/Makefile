@@ -1,11 +1,8 @@
 .DEFAULT_GOAL := all
 CPP := c++
 CPPFLAGS := -std=c++98 -Wall -Wextra -Werror -MMD -MP
-NAME := FIGHT
-SRCS := main.cpp \
-		Weapon.cpp	\
-		HumanA.cpp	\
-		HumanB.cpp
+NAME := Sed
+SRCS := main.cpp
 OBJS := $(SRCS:.cpp=.o)
 DEPS := $(SRCS:.cpp=.d)
 
