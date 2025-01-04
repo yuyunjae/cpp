@@ -1,8 +1,10 @@
 .DEFAULT_GOAL := all
 CPP := c++
 CPPFLAGS := -std=c++98 -Wall -Wextra -Werror -MMD -MP
-NAME :=
-SRCS :=
+NAME := Zombie
+SRCS := main.cpp \
+		Zombie.cpp	\
+		zombieHorde.cpp
 OBJS := $(SRCS:.cpp=.o)
 DEPS := $(SRCS:.cpp=.d)
 
