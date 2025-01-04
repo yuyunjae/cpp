@@ -38,6 +38,7 @@ void PhoneBook::searchContact() {
   std::cout << "|";
   std::cout << std::setw(10) << "nickname";
   std::cout << "|\n";
+  std::cout << "--------------------------------------------\n";
 
   for (int i = 1; i <= std::min(8, this->phoneBookSize); i++) {
     this->phoneBookSize < 8 ? printSimple(i - 1, i)
