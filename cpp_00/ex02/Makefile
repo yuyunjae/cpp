@@ -1,8 +1,9 @@
 .DEFAULT_GOAL := all
 CPP = c++
 CPPFLAGS = -std=c++98 -Wall -Wextra -Werror -MMD -MP
-NAME = megaphone
-SRCS = megaphone.cpp
+NAME = Account
+SRCS = Account.cpp \
+		tests.cpp
 OBJS = $(SRCS:.cpp=.o)
 DEPS = $(SRCS:.cpp=.d)
 

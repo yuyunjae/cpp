@@ -1,10 +1,10 @@
 .DEFAULT_GOAL := all
-CPP = c++
-CPPFLAGS = -std=c++98 -Wall -Wextra -Werror -MMD -MP
-NAME = megaphone
-SRCS = megaphone.cpp
-OBJS = $(SRCS:.cpp=.o)
-DEPS = $(SRCS:.cpp=.d)
+CPP := c++
+CPPFLAGS := -std=c++98 -Wall -Wextra -Werror -MMD -MP
+NAME := Brain
+SRCS := main.cpp
+OBJS := $(SRCS:.cpp=.o)
+DEPS := $(SRCS:.cpp=.d)
 
 -include $(DEPS)
 
@@ -17,14 +17,16 @@ $(NAME) : $(OBJS)
 %.o : %.cpp
 	$(CPP) $(CPPFLAGS) -c $< -o $@
 
-clean :
+clean:
 	rm -rf $(OBJS) $(DEPS)
 
-fclean :
+fclean:
 	rm -rf $(OBJS) $(DEPS) $(NAME)
 
-re :
+re:
 	@make fclean
 	@make all
 
-.PHONY: all clean fclean re
+.PHONY : all clean fclean re
+
+
