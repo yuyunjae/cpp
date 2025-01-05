@@ -38,5 +38,5 @@ bool PhoneBook::program(PhoneBook &phoneBook) {
         else if (command.length() > 0)
             std::cout << command << ": command not found!\n";
     }
-    return true;  // 정상 종료료
+    return true;  // 정상 종료
 }
