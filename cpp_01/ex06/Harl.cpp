@@ -15,7 +15,7 @@ Harl::Harl() {
         "I think I deserve to have some extra bacon for free.\nI've been "
         "coming for years whereas you started working here since last month.";
     this->errorMsg =
-        "This is unacceptable!\nI want to speak to the manager now.";
+        "This is unacceptable, I want to speak to the manager now.";
 }
 
 Harl::Harl(std::string debugMsg, std::string infoMsg, std::string warningMsg,
@@ -45,6 +45,7 @@ void Harl::warning(void) {
 void Harl::error(void) {
     std::cout << "[ ERROR ]\n";
     std::cout << this->errorMsg << "\n\n";
+    // 이부분 개행 하나 뺼지말지 고민해보기..
 }
 
 void Harl::complain(std::string level) {
@@ -56,10 +57,9 @@ void Harl::complain(std::string level) {
 
     for (int i = 0; i < 4; i++) {
         if (!str[i].compare(level)) {
-            (this->*callFunction[i])();
-            // std::cout << "okaY!" << std::endl;
+            for (int j = i; j < 4; j++) (this->*callFunction[j])();
             return;
         }
     }
-    std::cout << level << " : There is no corresponding level!\n";
+    std::cout << "[ Probably complaining about insignificant problems ]\n";
 }
