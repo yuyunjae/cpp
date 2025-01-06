@@ -26,3 +26,6 @@ void Fixed::setRawBits(int const raw) {
   std::cout << "setRawBits member function called\n";
   this->value = raw;
 }
+
+// Fixed::Fixed(const int value) {}
+// Fixed::Fixed(const float value) {}
