@@ -1,10 +1,10 @@
 .DEFAULT_GOAL := all
 CPP := c++
-CPPFLAGS := -std=c++98 -Wall -Wextra -Werror -MMD -MP
-# CPPFLAGS := -std=c++14 -Wall -Wextra -Werror -MMD -MP
-NAME := harlFilter
+# CPPFLAGS := -std=c++98 -Wall -Wextra -Werror -MMD -MP
+CPPFLAGS := -std=c++14 -Wall -Wextra -Werror -MMD -MP
+NAME := 
 SRCS := main.cpp	\
-		Harl.cpp
+		Fixed.cpp
 OBJS := $(SRCS:.cpp=.o)
 DEPS := $(SRCS:.cpp=.d)
 
