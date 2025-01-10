@@ -2,34 +2,38 @@
 
 const int Fixed::fractionalBit = 8;
 
-Fixed::Fixed() : value(0) { std::cout << "Default constructor called\n"; }
+Fixed::Fixed() : value(0) {
+  //  std::cout << "Default constructor called\n";
+}
 
 Fixed::Fixed(const int value) {
-  std::cout << "Int constructor called\n";
+  // std::cout << "Int constructor called\n";
   this->value = value;
-  if ((this->value >> (32 - this->fractionalBit) ^ 0) &&
-      (this->value >> (32 - this->fractionalBit) ^
-       ((1 << this->fractionalBit) - 1)))  // 이거 오버플로우 어캐하냐..
-    std::cout << "overflow occur!\n";
+  // if ((this->value >> (32 - this->fractionalBit) ^ 0) &&
+  //     (this->value >> (32 - this->fractionalBit) ^
+  //      ((1 << this->fractionalBit) - 1)))  // 이거 오버플로우 어캐하냐..
+  // std::cout << "overflow occur!\n";
   this->value = this->value << this->fractionalBit;
 }
 
 Fixed::Fixed(const float value) {
-  std::cout << "Float constructor called\n";
-  if (fabs(value) > fabs(value * (1 << this->fractionalBit)))
-    std::cout << "overflow occur!\n";
+  // std::cout << "Float constructor called\n";
+  // if (fabs(value) > fabs(value * (1 << this->fractionalBit)))
+  // std::cout << "overflow occur!\n";
   this->value = roundf(value * (1 << this->fractionalBit));
 }
 
-Fixed::~Fixed() { std::cout << "Destructor called\n"; }
+Fixed::~Fixed() {
+  // std::cout << "Destructor called\n";
+}
 
 Fixed::Fixed(const Fixed &other) {
-  std::cout << "Copy constructor called\n";
+  // std::cout << "Copy constructor called\n";
   *this = other;
 }
 
 Fixed &Fixed::operator=(const Fixed &other) {
-  std::cout << "Copy assignment operator called\n";
+  // std::cout << "Copy assignment operator called\n";
   if (this != &other) this->value = other.getRawBits();
   return *this;
 }

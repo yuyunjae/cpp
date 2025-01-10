@@ -7,6 +7,7 @@ class Point {
  private:
   Fixed const x;
   Fixed const y;
+  static Fixed crossProduct(Point const a, Point const b, Point const point);
 
  public:
   Point();

@@ -26,6 +26,8 @@ int main(void) {
   Fixed check2(5.5f);
   Fixed d(c / a);
   std::cout << d << std::endl;
+  std::cout << check1 << std::endl;
+  std::cout << check2 << std::endl;
   std::cout << check1 / check2 << std::endl;
   std::cout << typeid(c / a).name() << std::endl;
   std::cout << c << std::endl;
