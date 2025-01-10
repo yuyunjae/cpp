@@ -61,3 +61,64 @@ std::ostream &operator<<(std::ostream &out, const Fixed &me) {
     out << me.toFloat();
     return out;
 }
+
+bool Fixed::operator>(const Fixed &other) const {
+    return (this->getRawBits() > other.getRawBits() ? true : false);
+}
+
+bool Fixed::operator<(const Fixed &other) const {
+    return (this->getRawBits() < other.getRawBits() ? true : false);
+}
+
+bool Fixed::operator>=(const Fixed &other) const {
+    return (this->getRawBits() >= other.getRawBits() ? true : false);
+}
+
+bool Fixed::operator<=(const Fixed &other) const {
+    return (this->getRawBits() <= other.getRawBits() ? true : false);
+}
+
+bool Fixed::operator==(const Fixed &other) const {
+    return (this->getRawBits() == other.getRawBits() ? true : false);
+}
+
+bool Fixed::operator!=(const Fixed &other) const {
+    return (this->getRawBits() != other.getRawBits() ? true : false);
+}
+
+Fixed &Fixed::operator+(const Fixed &other) const {
+    return Fixed(this->getRawBits() + other.getRawBits());
+}
+
+Fixed &Fixed::operator-(const Fixed &other) const {
+    return Fixed(this->getRawBits() - other.getRawBits());
+}
+
+Fixed &Fixed::operator*(const Fixed &other) const {
+    return Fixed(this->getRawBits() * other.getRawBits());
+}
+
+// Fixed &Fixed::operator++(void) {
+// }  // 전위 연산자
+// Fixed &Fixed::operator--(void) {
+// }
+// Fixed &Fixed::operator++(int) {
+// }  // 후위 연산자
+// Fixed &Fixed::operator--(int) {
+// }
+
+Fixed &min(Fixed &a, Fixed &b) {
+    return ((b < a) ? b : a);
+}
+
+const Fixed &min(const Fixed &a, const Fixed &b) {
+    return ((b < a) ? b : a);
+}
+
+Fixed &max(Fixed &a, Fixed &b) {
+    return ((a < b) ? b : a);
+}
+
+const Fixed &max(const Fixed &a, const Fixed &b) {
+    return ((a < b) ? b : a);
+}
