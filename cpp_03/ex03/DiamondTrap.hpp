@@ -6,7 +6,7 @@
 
 class DiamondTrap : public FragTrap, public ScavTrap {
  private:
-  std::string name;  // 이거 어쩌라는 거지
+  std::string name;
   DiamondTrap();
   virtual void printNoEnergy(void);
   virtual void printDied(void);
