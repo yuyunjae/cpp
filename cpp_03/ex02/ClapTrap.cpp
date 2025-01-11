@@ -77,7 +77,7 @@ void ClapTrap::beRepaired(unsigned int amount) {
     this->printAlreadyDead();
   else if (this->energyPoints > 0) {
     this->hitPoints += amount;
-    std::cout << "ClapTrap " << this->name << " repairs itself. Get" << amount
+    std::cout << "ClapTrap " << this->name << " repairs itself. Get " << amount
               << " points! remaining hitPoints: " << this->hitPoints
               << std::endl;
     this->energyPoints--;

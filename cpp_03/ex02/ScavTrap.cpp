@@ -77,7 +77,7 @@ void ScavTrap::beRepaired(unsigned int amount) {
     this->printAlreadyDead();
   else if (this->energyPoints > 0) {
     this->hitPoints += amount;
-    std::cout << "ScavTrap " << this->name << " repairs itself. Get" << amount
+    std::cout << "ScavTrap " << this->name << " repairs itself. Get " << amount
               << " points! remaining hitPoints: " << this->hitPoints
               << std::endl;
     this->energyPoints--;
