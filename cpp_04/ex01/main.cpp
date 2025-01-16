@@ -1,13 +1,13 @@
-#include <cstdlib>
+// #include <cstdlib>
 
 #include "Cat.hpp"
 #include "Dog.hpp"
 #include "WrongCat.hpp"
 
-void checkLeak() { system("leaks animal"); }
+// void checkLeak() { system("leaks animal"); }
 
 int main() {
-  atexit(checkLeak);
+  // atexit(checkLeak);
   const Animal* j = new Dog();
   const Animal* i = new Cat();
 

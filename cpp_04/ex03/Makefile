@@ -1,13 +1,13 @@
 .DEFAULT_GOAL := all
 CPP := c++
-CPPFLAGS := -std=c++98 -Wall -Wextra -Werror -MMD -MP
-NAME := recap
+CPPFLAGS := -std=c++98 -Wall -Wextra -Werror -MMD -MP # -fsanitize=address -g
+NAME := a.out
 SRCS := main.cpp	\
 		AMateria.cpp	\
 		Character.cpp	\
 		Cure.cpp	\
 		Ice.cpp		\
-		MaterialSource.cpp
+		MateriaSource.cpp
 OBJS := $(SRCS:.cpp=.o)
 DEPS := $(SRCS:.cpp=.d)
 

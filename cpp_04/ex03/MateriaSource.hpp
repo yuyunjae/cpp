@@ -2,18 +2,23 @@
 #define MATERIASOURCE_HPP
 
 #include "AMateria.hpp"
+#include "IMateriaSource.hpp"
 
-class MateriaSource {
+class AMateria;
+
+class MateriaSource : public IMateriaSource {
+ private:
+  static const int maxMemory;
+  AMateria* memory[4];
+
  public:
   MateriaSource();
-  ~MateriaSource();
+  virtual ~MateriaSource();
   MateriaSource(const MateriaSource& other);
   MateriaSource& operator=(const MateriaSource& other);
 
-  virtual ~MateriaSource();
-  virtual void learnMateria(AMateria*);  // 이거는 cpp에서 Amateria *ameteria로
-                                         // 사용하면 될듯. 헤더파일에서 선언할
-                                         // 때 이렇게 하는 방법도 있다고 함.
+  virtual void learnMateria(AMateria*);
   virtual AMateria* createMateria(std::string const& type);
 };
+
 #endif
