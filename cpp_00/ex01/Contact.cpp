@@ -33,11 +33,6 @@ bool Contact::checkInput(const std::string &str) {
   return true;
 }
 
-// bool Contact::checkCin() {
-//   if (std::cin.fail() || std::cin.eof() || std::cin.bad()) return false;
-//   return true;
-// }
-
 Contact &Contact::operator=(const Contact &other) {
   if (this != &other) {
     this->firstName = other.firstName;

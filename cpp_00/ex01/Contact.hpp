@@ -15,7 +15,6 @@ class Contact {
 
   bool checkIsPrint(const std::string &str);
   bool checkInput(const std::string &str);
-  //   bool checkCin();
 
  public:
   Contact();

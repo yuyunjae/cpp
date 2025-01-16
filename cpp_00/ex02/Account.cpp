@@ -3,6 +3,7 @@
 #include <chrono>
 #include <iomanip>
 #include <iostream>
+#include <string>
 
 int Account::_nbAccounts = 0;
 int Account::_totalAmount = 0;
