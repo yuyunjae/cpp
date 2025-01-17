@@ -26,25 +26,14 @@ int main(int argc, char **argv) {
     ifs.seekg(0, std::ios::beg);
     str.resize(size);
     ifs.read(&str[0], size);
-    str.resize(ifs.gcount());
     if ((ifs.fail() || ifs.bad()) && !ifs.eof()) {
       std::cout << "file " << fileName << " read error! file size: " << size
                 << ", read size: " << ifs.gcount() << std::endl;
       ifs.close();
       return 1;
     }
+    str.resize(ifs.gcount());
 
-    // while (std::getline(ifs, temp)) {
-    //     str += temp;
-    //     if (ifs.peek() != EOF) str += '\n';
-    // }
-    // if ((ifs.fail() || ifs.bad()) &&
-    //     !ifs.eof())  // eof가 아닌 방법으로 while문 나온 듯
-    // {
-    //     std::cout << "cin error\n";
-    //     ifs.close();
-    //     return 1;
-    // }
   } else {
     std::cout << "file: " << fileName << " open error!\n";
     return 1;
@@ -58,9 +47,6 @@ int main(int argc, char **argv) {
   }
 
   fileName += ".replace";
-  // std::cout << str;
-  // std::cout << fileName << std::endl;
-  // std::cout << sBefore.length() << " : " << sAfter.length() << std::endl;
   std::fstream ofs(fileName.c_str(), std::fstream::out | std::fstream::trunc);
   if (ofs.is_open()) {
     ofs << str;

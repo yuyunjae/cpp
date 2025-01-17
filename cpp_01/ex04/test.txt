@@ -84,7 +84,7 @@ contact information, one field per line.
 Once a command has been correctly executed, the program waits for another one. It
 stops when the user inputs EXIT.
 Give a relevant name to your executable.
-
+s
 Stands for a phonebook contact.
 
 1
