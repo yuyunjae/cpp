@@ -1,6 +1,7 @@
 #include "Account.hpp"
 
 #include <chrono>
+#include <ctime>
 #include <iomanip>
 #include <iostream>
 #include <string>
@@ -97,6 +98,6 @@ void Account::displayStatus() const {
 void Account::_displayTimestamp(void) {
   std::time_t now_t =
       std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-  std::tm *local_time = std::localtime(&now_t);
+  std::tm *local_time = localtime(&now_t);
   std::cout << std::put_time(local_time, "[%Y%m%d_%H%M%S] ");
 }

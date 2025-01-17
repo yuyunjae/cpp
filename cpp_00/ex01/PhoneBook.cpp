@@ -52,10 +52,10 @@ void PhoneBook::searchContact() {
         searchIndex <= std::min(8, this->phoneBookSize))
       break;
     std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cin.ignore(1, '\n');
     std::cout << "re enter index: ";
   }
-  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+  std::cin.ignore(1, '\n');
   printContactAll(this->phoneBookSize < 8 ? searchIndex - 1
                                           : (this->top + searchIndex) % 8);
 }
