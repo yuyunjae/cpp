@@ -1,8 +1,9 @@
 .DEFAULT_GOAL := all
 CPP := C++
 CPPFLAG := -std=c++98 -Wall -Wextra -Werror -MMD -MP
-NAME :=
-SRCS :=
+NAME := Bureaucrat
+SRCS := main.cpp	\
+		Bureaucrat.cpp
 OBJS := $(SRCS:.cpp=.o)
 DEPS := $(SRCS:.cpp=.d)
 
