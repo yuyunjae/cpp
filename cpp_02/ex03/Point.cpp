@@ -2,10 +2,7 @@
 
 Point::Point() : x(0), y(0) {}
 
-Point::Point(float const x, float const y) : x(x), y(y) {
-  // std::cout << this->getX().toFloat() << " : " << this->getY().toFloat()
-  //           << std::endl;
-}
+Point::Point(float const x, float const y) : x(x), y(y) {}
 
 Point::~Point() {};
 

@@ -8,18 +8,11 @@ Fixed::Fixed() : value(0) {
 
 Fixed::Fixed(const int value) {
   // std::cout << "Int constructor called\n";
-  this->value = value;
-  // if ((this->value >> (32 - this->fractionalBit) ^ 0) &&
-  //     (this->value >> (32 - this->fractionalBit) ^
-  //      ((1 << this->fractionalBit) - 1)))  // 이거 오버플로우 어캐하냐..
-  // std::cout << "overflow occur!\n";
-  this->value = this->value << this->fractionalBit;
+  this->value = value << this->fractionalBit;
 }
 
 Fixed::Fixed(const float value) {
   // std::cout << "Float constructor called\n";
-  // if (fabs(value) > fabs(value * (1 << this->fractionalBit)))
-  // std::cout << "overflow occur!\n";
   this->value = roundf(value * (1 << this->fractionalBit));
 }
 

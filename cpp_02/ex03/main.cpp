@@ -8,7 +8,7 @@
 int main(void) {
   bool arr[MAPY][MAPX] = {};
   float i = 0.0f, j = 0.0f;
-  Point st(1, 1);
+  Point st(1.2, 1);
   Point nd(4, 2);
   Point rd(2, 3);
 
