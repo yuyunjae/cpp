@@ -61,7 +61,7 @@ int main(int argc, char **argv) {
   // std::cout << str;
   // std::cout << fileName << std::endl;
   // std::cout << sBefore.length() << " : " << sAfter.length() << std::endl;
-  std::fstream ofs(fileName, std::fstream::out | std::fstream::trunc);
+  std::fstream ofs(fileName.c_str(), std::fstream::out | std::fstream::trunc);
   if (ofs.is_open()) {
     ofs << str;
   } else {
