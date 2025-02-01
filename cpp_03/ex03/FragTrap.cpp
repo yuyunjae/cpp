@@ -14,11 +14,7 @@ FragTrap::~FragTrap() {
   std::cout << this->name << ": FragTrap Destructor called\n";
 }
 
-FragTrap::FragTrap(const FragTrap &other) {
-  this->name = other.name;
-  this->hitPoints = other.hitPoints;
-  this->energyPoints = other.energyPoints;
-  this->attackDamage = other.attackDamage;
+FragTrap::FragTrap(const FragTrap &other) : ClapTrap(other) {
   std::cout << this->name << ": FragTrap Copy Constructor called\n";
 }
 

@@ -14,11 +14,7 @@ ScavTrap::~ScavTrap() {
   std::cout << this->name << ": ScavTrap Destructor called\n";
 }
 
-ScavTrap::ScavTrap(const ScavTrap &other) {
-  this->name = other.name;
-  this->hitPoints = other.hitPoints;
-  this->energyPoints = other.energyPoints;
-  this->attackDamage = other.attackDamage;
+ScavTrap::ScavTrap(const ScavTrap &other) : ClapTrap(other) {
   std::cout << this->name << ": ScavTrap Copy Constructor called\n";
 }
 
