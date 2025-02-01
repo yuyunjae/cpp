@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := all
-CPP := C++
+CPP := c++
 CPPFLAG := -std=c++98 -Wall -Wextra -Werror -MMD -MP
 NAME := Bureaucrat
 SRCS := main.cpp	\
