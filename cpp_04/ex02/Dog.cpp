@@ -11,7 +11,7 @@ Dog::~Dog() {
   delete this->brain;
 }
 
-Dog::Dog(const Dog &other) {
+Dog::Dog(const Dog &other): Animal(other) {
   std::cout << "Dog Copy Constructor called\n";
   this->brain = new Brain(*(other.brain));
   this->type = other.type;
