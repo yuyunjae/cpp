@@ -18,7 +18,8 @@ DiamondTrap::~DiamondTrap() {
   std::cout << this->name << ": DiamondTrap Destructor called\n";
 }
 
-DiamondTrap::DiamondTrap(const DiamondTrap &other) {
+DiamondTrap::DiamondTrap(const DiamondTrap &other)
+    : ClapTrap(other), FragTrap(other), ScavTrap(other) {
   this->name = other.name;
   this->hitPoints = other.hitPoints;
   this->energyPoints = other.energyPoints;
