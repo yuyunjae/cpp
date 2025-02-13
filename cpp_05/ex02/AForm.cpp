@@ -8,6 +8,14 @@ const char *AForm::GradeTooLowException::what() const throw() {
   return ("Grade too low. ");
 }
 
+const char *AForm::NoSignException::what() const throw() {
+  return ("The Form must be signed before running. ");
+}
+
+const char *AForm::FileOpenException::what() const throw() {
+  return ("File open error! ");
+}
+
 AForm::AForm() : name(""), sign(false), signGrade(1), execGrade(1) {
   std::cout << "AForm default constructor called\n";
 }

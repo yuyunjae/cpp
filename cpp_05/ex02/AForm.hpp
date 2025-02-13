@@ -24,6 +24,16 @@ class AForm {
     virtual const char *what() const throw();
   };
 
+  class NoSignException : public std::exception {
+   public:
+    virtual const char *what() const throw();
+  };
+
+  class FileOpenException : public std::exception {
+   public:
+    virtual const char *what() const throw();
+  };
+
   AForm(const std::string name, int signGradem, int execGrade);
   virtual ~AForm();
   AForm(const AForm &other);
@@ -35,6 +45,8 @@ class AForm {
   int getExecGrade() const;
 
   bool setSign(bool sign);
+
+  virtual void execute(Bureaucrat const &executor) const = 0;
 
   void beSigned(const Bureaucrat &bureaucrat);
 };
