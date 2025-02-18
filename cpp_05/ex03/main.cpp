@@ -1,124 +1,63 @@
 #include "AForm.hpp"
 #include "Bureaucrat.hpp"
+#include "Intern.hpp"
 #include "PresidentialPardonForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "ShrubberyCreationForm.hpp"
 
 int main(void) {
-  std::cout << "-------------------- test1 : ShrubberyCreationForm 정상 실행"
+  std::cout << "-------------------- test1 : ShrubberyCreationForm 정상 생성"
                "--------------------\n";
   try {
-    Bureaucrat test1("yuyu", 10);
-    std::cout << test1 << std::endl;
-    ShrubberyCreationForm formTest1("form1");
-    std::cout << formTest1 << std::endl;
-    test1.signForm(formTest1);
-    test1.executeForm(formTest1);
+    Bureaucrat test1("yuyu", 3);
+    Intern intern1;
+    AForm *rrf;
+    rrf = intern1.makeForm("shrubbery creation", "Bender1");
+    std::cout << *rrf << std::endl;
+    test1.signForm(*rrf);
+    test1.executeForm(*rrf);
   } catch (std::exception &e) {
     std::cout << e.what() << std::endl;
   }
 
-  std::cout << "-------------------- test2 : ShrubberyCreationForm 비정상 실행"
+  std::cout << "-------------------- test2 : PresidentialPardonForm 정상 생성"
                "--------------------\n";
   try {
-    Bureaucrat test1("yuyu", 10);
-    std::cout << test1 << std::endl;
-    ShrubberyCreationForm formTest1("form1");
-    std::cout << formTest1 << std::endl;
-    test1.signForm(formTest1);
-    test1.setGrade(150);  // 실행 권한보다 권한이 낮아짐.
-    test1.executeForm(formTest1);
+    Bureaucrat test1("yuyu", 3);
+    Intern intern1;
+    AForm *rrf;
+    rrf = intern1.makeForm("presidential pardon", "Bender2");
+    std::cout << *rrf << std::endl;
+    test1.signForm(*rrf);
+    test1.executeForm(*rrf);
   } catch (std::exception &e) {
     std::cout << e.what() << std::endl;
   }
 
-  try {
-    Bureaucrat test1("yuyu", 10);
-    std::cout << test1 << std::endl;
-    ShrubberyCreationForm formTest1("form1");
-    std::cout << formTest1 << std::endl;
-    // test1.signForm(formTest1); sign x 일때
-    test1.executeForm(formTest1);
-  } catch (std::exception &e) {
-    std::cout << e.what() << std::endl;
-  }
-
-  /////////////////////////////////////////////////////////////////////////
-
-  std::cout << "-------------------- test3 : PresidentialPardonForm 정상 실행"
+  std::cout << "-------------------- test3 : RobotomyRequestForm 정상 생성"
                "--------------------\n";
   try {
-    Bureaucrat test1("yuyu", 1);
-    std::cout << test1 << std::endl;
-    PresidentialPardonForm formTest1("form1");
-    std::cout << formTest1 << std::endl;
-    test1.signForm(formTest1);
-    test1.executeForm(formTest1);
+    Bureaucrat test1("yuyu", 3);
+    Intern intern1;
+    AForm *rrf;
+    rrf = intern1.makeForm("robotomy request", "Bender3");
+    std::cout << *rrf << std::endl;
+    test1.signForm(*rrf);
+    test1.executeForm(*rrf);
   } catch (std::exception &e) {
     std::cout << e.what() << std::endl;
   }
 
-  std::cout << "-------------------- test4 : PresidentialPardonForm 비정상 실행"
+  std::cout << "-------------------- test4 : 존재하지않는 Form 생성 시도"
                "--------------------\n";
   try {
-    Bureaucrat test1("yuyu", 1);
-    std::cout << test1 << std::endl;
-    PresidentialPardonForm formTest1("form1");
-    std::cout << formTest1 << std::endl;
-    test1.signForm(formTest1);
-    test1.setGrade(150);  // 실행 권한보다 권한이 낮아짐.
-    test1.executeForm(formTest1);
-  } catch (std::exception &e) {
-    std::cout << e.what() << std::endl;
-  }
-
-  try {
-    Bureaucrat test1("yuyu", 10);
-    std::cout << test1 << std::endl;
-    PresidentialPardonForm formTest1("form1");
-    std::cout << formTest1 << std::endl;
-    // test1.signForm(formTest1); sign x 일때
-    test1.executeForm(formTest1);
-  } catch (std::exception &e) {
-    std::cout << e.what() << std::endl;
-  }
-
-  /////////////////////////////////////////////////////////////////////////
-
-  std::cout << "-------------------- test5 : RobotomyRequestForm 정상 실행"
-               "--------------------\n";
-  try {
-    Bureaucrat test1("yuyu", 10);
-    std::cout << test1 << std::endl;
-    RobotomyRequestForm formTest1("form1");
-    std::cout << formTest1 << std::endl;
-    test1.signForm(formTest1);
-    test1.executeForm(formTest1);
-  } catch (std::exception &e) {
-    std::cout << e.what() << std::endl;
-  }
-
-  std::cout << "-------------------- test6 : RobotomyRequestForm 비정상 실행"
-               "--------------------\n";
-  try {
-    Bureaucrat test1("yuyu", 10);
-    std::cout << test1 << std::endl;
-    RobotomyRequestForm formTest1("form1");
-    std::cout << formTest1 << std::endl;
-    test1.signForm(formTest1);
-    test1.setGrade(150);  // 실행 권한보다 권한이 낮아짐.
-    test1.executeForm(formTest1);
-  } catch (std::exception &e) {
-    std::cout << e.what() << std::endl;
-  }
-
-  try {
-    Bureaucrat test1("yuyu", 10);
-    std::cout << test1 << std::endl;
-    RobotomyRequestForm formTest1("form1");
-    std::cout << formTest1 << std::endl;
-    // test1.signForm(formTest1); sign x 일때
-    test1.executeForm(formTest1);
+    Bureaucrat test1("yuyu", 3);
+    Intern intern1;
+    AForm *rrf;
+    rrf = intern1.makeForm("Non-existent form", "Bender4");
+    std::cout << *rrf << std::endl;
+    test1.signForm(*rrf);
+    test1.executeForm(*rrf);
   } catch (std::exception &e) {
     std::cout << e.what() << std::endl;
   }

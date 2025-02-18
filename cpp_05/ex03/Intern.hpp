@@ -7,12 +7,17 @@
 
 class Intern {
  private:
-  static const std::string Intern::str[3];
-  void makeRobotoForm(const std::string target);
-  void makePresidentialForm(const std::string target);
-  void makeShrubberyForm(const std::string target);
+  static const std::string str[3];
+  AForm *makeRobotoForm(const std::string target);
+  AForm *makePresidentialForm(const std::string target);
+  AForm *makeShrubberyForm(const std::string target);
 
  public:
+  class NoFormException : public std::exception {
+   public:
+    virtual const char *what() const throw();
+  };
+
   Intern();
   virtual ~Intern();
   Intern(const Intern &other);

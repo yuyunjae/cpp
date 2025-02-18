@@ -49,16 +49,16 @@ ShrubberyCreationForm &ShrubberyCreationForm::operator=(
 
 void ShrubberyCreationForm::shrubberyCreation() const {
   std::string fileName = this->getName() + "_shrubbery";
-  std::fstream ofs;
-  ofs.exceptions(std::fstream::failbit | std::fstream::badbit);
+  std::fstream ofs(fileName, std::fstream::out | std::fstream::trunc);
   try {
-    ofs.open(fileName, std::fstream::out | std::fstream::trunc);
-    ofs << "          &&& &&  & &&\n      && &\\/&\\|& ()|/ @, &&\n      "
-           "&\\/(/&/&||/& /_/)_&/_&\n   &() &\\/&|()|/&\\/ '%' & ()\n  "
-           "&_\\_&&_\\ |& |&&/&__%_/_& &&\n&&   && & &| &| /& & % ()& /&&\n "
-           "()&_---()&\\&\\|&&-&&--%---()~\n     &&     \\|||\n             "
-           "|||\n "
-           "            |||\n             |||\n       , -=-~  .-^- _\n";
+    if (ofs.is_open()) {
+      ofs << "          &&& &&  & &&\n      && &\\/&\\|& ()|/ @, &&\n      "
+             "&\\/(/&/&||/& /_/)_&/_&\n   &() &\\/&|()|/&\\/ '%' & ()\n  "
+             "&_\\_&&_\\ |& |&&/&__%_/_& &&\n&&   && & &| &| /& & % ()& /&&\n "
+             "()&_---()&\\&\\|&&-&&--%---()~\n     &&     \\|||\n             "
+             "|||\n "
+             "            |||\n             |||\n       , -=-~  .-^- _\n";
+    }
     ofs.close();
   } catch (std::exception &e) {
     throw e;
