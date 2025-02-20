@@ -2,8 +2,11 @@
 #define SCALARCONVERTER_HPP
 
 #include <algorithm>
-#include <functional>
+#include <cerrno>
+#include <cmath>
 #include <iostream>
+#include <limits>
+#include <sstream>
 #include <string>
 
 class ScalarConverter {
@@ -13,6 +16,8 @@ class ScalarConverter {
   ScalarConverter(const ScalarConverter &other);
   ScalarConverter &operator=(const ScalarConverter &other);
   static std::string trim(const std::string &str);
+  static void printLiterals(char ch, int ivalue, float fvalue, double dvalue,
+                            int flag);
 
  public:
   static void convert(const std::string str);
