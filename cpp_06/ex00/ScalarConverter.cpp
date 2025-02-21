@@ -24,8 +24,15 @@ std::string ScalarConverter::trim(const std::string &str) {
   std::string::size_type start = 0, end = str.length();
   while (start < end && std::isspace(str[start])) start++;
   while (end > start && std::isspace(str[end - 1])) end--;
-  if (start > end) return "";
+  if (start >= end) {
+    if (str.length() == 1 && str[0] == ' ') return " ";
+    return "";
+  }
   return str.substr(start, end - start);
+}
+
+void ScalarConverter::printNan() {
+  std::cout << "char: impossible\nint: impossible\nfloat: nanf\ndouble: nan\n";
 }
 
 void ScalarConverter::printLiterals(char ch, int ivalue, float fvalue,
@@ -71,14 +78,143 @@ void ScalarConverter::printLiterals(char ch, int ivalue, float fvalue,
     std::cout << dvalue << std::endl;
 }
 
-void ScalarConverter::convert(const std::string str) {
-  std::string substr = trim(str);
+int ScalarConverter::checkType(const std::string &str) {
   std::string::size_type dot;
   std::string::size_type f;
+
+  dot = str.find('.');
+  f = str.find('f', str.length() - 1);
+
+  // inf or nan
+  if (str == "nan" || str == "nanf")
+    return NOTYPE;
+  else if (str == "+inff" || str == "inff" || str == "-inff")
+    return FLOATTYPE;
+  else if (str == "-inf" || str == "+inf" || str == "inf")
+    return DOUBLETYPE;
+
+  // 숫자만으로 이루어져있는지 체크
+  for (std::string::size_type i = 0; i < str.length(); i++) {
+    if (!std::isdigit(str[i])) {
+      if (i == 0 && (str[i] == '-' || str[i] == '+')) continue;
+      if (i == dot && str[i] == '.') continue;
+      if (i == f && str[i] == 'f') continue;
+      return NOTYPE;
+    }
+  }
+
+  if (str.length() == 1 && !std::isdigit(str[0]))
+    return CHARTYPE;
+  else if (dot == std::string::npos && f == std::string::npos)
+    return INTTYPE;
+  else if (dot != std::string::npos && f == std::string::npos)
+    return DOUBLETYPE;
+  else if (dot != std::string::npos && f != std::string::npos)
+    return FLOATTYPE;
+  return NOTYPE;
+}
+
+void ScalarConverter::convertChar(const std::string &str) {
   char ch = 0;
   int ivalue = 0;
   float fvalue = 0;
   double dvalue = 0;
+
+  ch = static_cast<char>(str[0]);
+  ivalue = static_cast<int>(ch);
+  fvalue = static_cast<float>(ch);
+  dvalue = static_cast<double>(ch);
+  printLiterals(ch, ivalue, fvalue, dvalue, 0);
+}
+
+void ScalarConverter::convertDouble(const std::string &str) {
+  char ch = 0;
+  int ivalue = 0;
+  float fvalue = 0;
+  double dvalue = 0;
+  char *endptr = 0;
+
+  if (str == "+inf" || str == "inf") {
+    fvalue = std::numeric_limits<float>::infinity();
+    dvalue = std::numeric_limits<double>::infinity();
+  } else if (str == "-inf") {
+    fvalue = -std::numeric_limits<float>::infinity();
+    dvalue = -std::numeric_limits<double>::infinity();
+  }
+  errno = 0;
+  dvalue = std::strtod(str.c_str(), &endptr);
+  if (*endptr != '\0' && *endptr != 'f') return printNan();
+
+  if (errno == ERANGE) {
+    if (str[0] == '-') {
+      flag += 1 << 4;
+      flag += 1 << 6;
+      flag += 1 << 8;
+      flag += 1 << 10;
+    } else {
+      flag += 1 << 3;
+      flag += 1 << 5;
+      flag += 1 << 7;
+      flag += 1 << 9;
+    }
+  } else {
+    if (dvalue > CHAR_MAX) {
+      flag += 1 << 3;
+      if (dvalue > INT_MAX) {
+        flag += 1 << 5;
+        if (dvalue > std::numeric_limits<float>::max())
+          flag += 1 << 7;
+        else
+          fvalue = static_cast<float>(dvalue);
+      } else
+        ivalue = static_cast<int>(dvalue);
+    } else if (dvalue < CHAR_MIN) {
+      flag += 1 << 4;
+      if (dvalue < INT_MIN) {
+        flag += 1 << 6;
+        if (dvalue < std::numeric_limits<float>::min())
+          flag += 1 << 8;
+        else
+          fvalue = static_cast<float>(dvalue);
+      } else
+        ivalue = static_cast<int>(dvalue);
+    } else {
+      ch = static_cast<char>(dvalue);
+      ivalue = static_cast<int>(dvalue);
+      fvalue = static_cast<float>(dvalue);
+    }
+  }
+}
+
+void ScalarConverter::convert(const std::string str) {
+  std::string substr = trim(str);
+
+  // 빈공간만 있을 때
+  if (substr.length() < 1) return printNan();
+  int literalType = checkType(substr);
+  switch (literalType) {
+    case CHARTYPE:
+      convertChar(substr);
+      break;
+    case INTTYPE:
+      convertInt(substr);
+      break;
+    case FLOATTYPE:
+      convertFloat(substr);
+      break;
+    case DOUBLETYPE:
+      convertDouble(substr);
+      break;
+    case NOTYPE:
+      printNan();
+      break;
+    default:
+      printNan();
+  }
+
+  std::string::size_type dot;
+  std::string::size_type f;
+
   int flag = 0;
   /*
   1      nan
@@ -106,41 +242,6 @@ void ScalarConverter::convert(const std::string str) {
   }
   dot = substr.find('.');
   f = substr.find('f', substr.length() - 1);
-  // if (substr.find('.', dot + 1) != std::string::npos) {
-  //   flag += 1 << 11;
-  //   return printLiterals(ch, ivalue, fvalue, dvalue, flag);
-  // }
-
-  // inf or nan
-  if (substr == "-inff" || substr == "+inff" || substr == "nanf" ||
-      substr == "-inf" || substr == "+inf" || substr == "nan" ||
-      substr == "inf" || substr == "inff") {
-    if (substr == "nan" || substr == "nanf") {
-      fvalue = std::nanf("");
-      dvalue = std::nan("");
-      flag += 1;
-    } else if (substr[0] == '-') {
-      fvalue = -std::numeric_limits<float>::infinity();
-      dvalue = -std::numeric_limits<double>::infinity();
-      flag += 1 << 1;
-    } else {
-      fvalue = std::numeric_limits<float>::infinity();
-      dvalue = std::numeric_limits<double>::infinity();
-      flag += 1 << 2;
-    }
-    return printLiterals(ch, ivalue, fvalue, dvalue, flag);
-  }
-
-  // 숫자만으로 이루어져있는지 체크
-  for (std::string::size_type i = 0; i < substr.length(); i++) {
-    if (!std::isdigit(substr[i])) {
-      if (i == 0 && (substr[i] == '-' || substr[i] == '+')) continue;
-      if (i == dot && substr[i] == '.') continue;
-      if (i == f && substr[i] == 'f') continue;
-      flag += 1 << 11;
-      return printLiterals(ch, ivalue, fvalue, dvalue, flag);
-    }
-  }
 
   // char
   if (substr.length() == 1 && !std::isdigit(substr[0])) {
