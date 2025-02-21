@@ -4,9 +4,10 @@ RobotomyRequestForm::RobotomyRequestForm() : AForm("", 72, 45) {
   std::cout << "RobotomyRequestForm default constructor called\n";
 }
 
-RobotomyRequestForm::RobotomyRequestForm(const std::string name)
-    : AForm(name, 72, 45) {
+RobotomyRequestForm::RobotomyRequestForm(const std::string target)
+    : AForm("RobotomyRequestForm", 72, 45) {
   std::cout << "RobotomyRequestForm default constructor called\n";
+  this->_target = target;
 }
 
 RobotomyRequestForm::~RobotomyRequestForm() {
@@ -16,6 +17,7 @@ RobotomyRequestForm::~RobotomyRequestForm() {
 RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &other)
     : AForm(other) {
   std::cout << "RobotomyRequestForm copy constructor called\n";
+  this->_target = other._target;
   if (this->getSignGrade() < 1)
     throw RobotomyRequestForm::GradeTooHighException();
   if (this->getSignGrade() > 150)
@@ -32,6 +34,7 @@ RobotomyRequestForm &RobotomyRequestForm::operator=(
   if (this != &other) {
     // this->name = other.name;  이거 const인데 어캐함.
     this->setSign(other.getSign());
+    this->_target = other._target;
     // this->signGrade = other.signGrade; 이거 const인데 어캐함.
     // this->execGrade = other.execGrade; 이거 const인데 어캐함.
     // 	  if (this->signGrade < 1) throw
@@ -53,7 +56,7 @@ void RobotomyRequestForm::execute(Bureaucrat const &executor) const {
   std::cout << "weeeeeeeeeeeeeeeeeeeeing!!\n";
   std::srand(std::time(NULL));
   if (std::rand() % 2)
-    std::cout << this->getName() << " has been robotomized successfully.\n";
+    std::cout << this->_target << " has been robotomized successfully.\n";
   else
-    std::cout << this->getName() << " robotomy failed.\n";
+    std::cout << this->_target << " robotomy failed.\n";
 }

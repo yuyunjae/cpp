@@ -7,11 +7,12 @@
 
 class ShrubberyCreationForm : public AForm {
  private:
+  std::string _target;
   ShrubberyCreationForm();
   void shrubberyCreation() const;
 
  public:
-  ShrubberyCreationForm(const std::string name);
+  ShrubberyCreationForm(const std::string target);
   virtual ~ShrubberyCreationForm();
   ShrubberyCreationForm(const ShrubberyCreationForm &other);
   ShrubberyCreationForm &operator=(const ShrubberyCreationForm &other);

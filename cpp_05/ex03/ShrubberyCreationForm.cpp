@@ -6,9 +6,10 @@ ShrubberyCreationForm::ShrubberyCreationForm() : AForm("", 145, 137) {
   // trees inside it. => 이거 어캐 처리해야하나...
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(const std::string name)
-    : AForm(name, 145, 137) {
+ShrubberyCreationForm::ShrubberyCreationForm(const std::string target)
+    : AForm("ShrubberyCreationForm", 145, 137) {
   std::cout << "ShrubberyCreationForm default constructor called\n";
+  this->_target = target;
 }
 
 ShrubberyCreationForm::~ShrubberyCreationForm() {
@@ -18,6 +19,7 @@ ShrubberyCreationForm::~ShrubberyCreationForm() {
 ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &other)
     : AForm(other) {
   std::cout << "ShrubberyCreationForm copy constructor called\n";
+  this->_target = other._target;
   if (this->getSignGrade() < 1)
     throw ShrubberyCreationForm::GradeTooHighException();
   if (this->getSignGrade() > 150)
@@ -34,6 +36,7 @@ ShrubberyCreationForm &ShrubberyCreationForm::operator=(
   if (this != &other) {
     // this->name = other.name;  이거 const인데 어캐함.
     this->setSign(other.getSign());
+    this->_target = other._target;
     // this->signGrade = other.signGrade; 이거 const인데 어캐함.
     // this->execGrade = other.execGrade; 이거 const인데 어캐함.
     // 	  if (this->signGrade < 1) throw
@@ -48,7 +51,7 @@ ShrubberyCreationForm &ShrubberyCreationForm::operator=(
 }
 
 void ShrubberyCreationForm::shrubberyCreation() const {
-  std::string fileName = this->getName() + "_shrubbery";
+  std::string fileName = this->_target + "_shrubbery";
   std::fstream ofs(fileName, std::fstream::out | std::fstream::trunc);
   try {
     if (ofs.is_open()) {
