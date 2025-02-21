@@ -1,8 +1,9 @@
 .DEFAULT_GOAL := all
 CPP := c++
 CPPFLAG := -std=c++98 -Wall -Wextra -Werror -MMD -MP
-NAME :=
-SRCS :=
+NAME := convert
+SRCS := ScalarConverter.cpp 	\
+		main.cpp
 OBJS := $(SRCS:.cpp=.o)
 DEPS := $(SRCS:.cpp=.d)
 

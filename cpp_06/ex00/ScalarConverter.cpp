@@ -11,10 +11,12 @@ ScalarConverter::~ScalarConverter() {
 
 ScalarConverter::ScalarConverter(const ScalarConverter &other) {
   std::cout << "ScalarConverter copy constructor called\n";
+  (void)other;
 }
 
 ScalarConverter &ScalarConverter::operator=(const ScalarConverter &other) {
   std::cout << "ScalarConverter copy assignment operator called\n";
+  (void)other;
   return *this;
 }
 
@@ -58,7 +60,7 @@ void ScalarConverter::printLiterals(char ch, int ivalue, float fvalue,
   else if (flag & (1 << 8))
     std::cout << "underflow\n";
   else
-    std::cout << fvalue << std::endl;
+    std::cout << fvalue << 'f' << std::endl;
 
   std::cout << "double: ";
   if (flag & (1 << 9))
@@ -96,7 +98,7 @@ void ScalarConverter::convert(const std::string str) {
 
   if (substr.length() < 1) {  // 빈공간만 있을 때
     if (str.length() == 1 && str[0] == ' ')
-      substr == " ";
+      substr = " ";
     else {
       flag += 1 << 11;
       return printLiterals(ch, ivalue, fvalue, dvalue, flag);
@@ -162,22 +164,62 @@ void ScalarConverter::convert(const std::string str) {
         flag += 1 << 3;
       else
         flag += 1 << 4;
-      fvalue = static_cast<float>(ivalue);
-      dvalue = static_cast<double>(ivalue);
     } else if (substr[0] == '-') {
       flag += 1 << 4;
       flag += 1 << 6;
-      // float double overflow 여부 체크해야함.
+      // float double underflow 여부 체크해야함.
+    } else {  // overflow
+      flag += 1 << 3;
+      flag += 1 << 5;
     }
+    fvalue = static_cast<float>(ivalue);
+    dvalue = static_cast<double>(ivalue);
   }
+
   // float
   else if (dot != std::string::npos && f != std::string::npos) {
-    //
+    errno = 0;
+    char *endptr = 0;
+
+    fvalue = std::strtof(substr.c_str(), &endptr);
+    if (*endptr != '\0' && *endptr != 'f') {
+      flag += 1 << 11;
+      return printLiterals(ch, ivalue, fvalue, dvalue, flag);
+    }
+    if (errno == ERANGE) {
+      if (substr[0] == '-') {
+        flag += 1 << 4;
+        flag += 1 << 6;
+        flag += 1 << 8;
+      } else {
+        flag += 1 << 3;
+        flag += 1 << 5;
+        flag += 1 << 7;
+      }
+    } else {
+      if (fvalue > CHAR_MAX) {
+        flag += 1 << 3;
+        if (fvalue > INT_MAX)
+          flag += 1 << 5;
+        else
+          ivalue = static_cast<int>(fvalue);
+      } else if (fvalue < CHAR_MIN) {
+        flag += 1 << 4;
+        if (fvalue < INT_MIN)
+          flag += 1 << 6;
+        else
+          ivalue = static_cast<int>(fvalue);
+      } else {
+        ch = static_cast<char>(fvalue);
+        ivalue = static_cast<int>(fvalue);
+      }
+    }
+    dvalue = static_cast<float>(fvalue);
   }
+
   // double
   else if (dot != std::string::npos && f == std::string::npos) {
-    std::stringstream ss;
-    std::string check;
+    errno = 0;
     char *endptr = 0;
 
     dvalue = std::strtod(substr.c_str(), &endptr);
@@ -185,6 +227,46 @@ void ScalarConverter::convert(const std::string str) {
       flag += 1 << 11;
       return printLiterals(ch, ivalue, fvalue, dvalue, flag);
     }
-    // 오버플로우..
+
+    if (errno == ERANGE) {
+      if (substr[0] == '-') {
+        flag += 1 << 4;
+        flag += 1 << 6;
+        flag += 1 << 8;
+        flag += 1 << 10;
+      } else {
+        flag += 1 << 3;
+        flag += 1 << 5;
+        flag += 1 << 7;
+        flag += 1 << 9;
+      }
+    } else {
+      if (dvalue > CHAR_MAX) {
+        flag += 1 << 3;
+        if (dvalue > INT_MAX) {
+          flag += 1 << 5;
+          if (dvalue > std::numeric_limits<float>::max())
+            flag += 1 << 7;
+          else
+            fvalue = static_cast<float>(dvalue);
+        } else
+          ivalue = static_cast<int>(dvalue);
+      } else if (dvalue < CHAR_MIN) {
+        flag += 1 << 4;
+        if (dvalue < INT_MIN) {
+          flag += 1 << 6;
+          if (dvalue < std::numeric_limits<float>::min())
+            flag += 1 << 8;
+          else
+            fvalue = static_cast<float>(dvalue);
+        } else
+          ivalue = static_cast<int>(dvalue);
+      } else {
+        ch = static_cast<char>(dvalue);
+        ivalue = static_cast<int>(dvalue);
+        fvalue = static_cast<float>(dvalue);
+      }
+    }
   }
+  return printLiterals(ch, ivalue, fvalue, dvalue, flag);
 }
