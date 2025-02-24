@@ -11,17 +11,17 @@
 #include <string>
 
 class ScalarConverter {
- private:
-  ScalarConverter();
-  virtual ~ScalarConverter();
-  ScalarConverter(const ScalarConverter &other);
-  ScalarConverter &operator=(const ScalarConverter &other);
-  static std::string trim(const std::string &str);
-  static void printLiterals(char ch, int ivalue, float fvalue, double dvalue,
-                            int flag);
+   private:
+    ScalarConverter();
+    virtual ~ScalarConverter();
+    ScalarConverter(const ScalarConverter &other);
+    ScalarConverter &operator=(const ScalarConverter &other);
+    static std::string trim(const std::string &str);
+    static void printLiterals(char ch, int ivalue, float fvalue, double dvalue,
+                              int flag);
 
- public:
-  static void convert(const std::string str);
+   public:
+    static void convert(const std::string str);
 };
 
 #endif
