@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 
-#define uintptr_t unsigned int
+#define uintptr_t unsigned long
 
 typedef struct sData {
     std::string str;

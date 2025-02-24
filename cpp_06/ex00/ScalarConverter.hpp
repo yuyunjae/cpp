@@ -7,6 +7,7 @@
 #include <iomanip>
 #include <iostream>
 #include <limits>
+#include <climits>
 #include <sstream>
 #include <string>
 

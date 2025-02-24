@@ -116,8 +116,8 @@ void ScalarConverter::convert(const std::string str) {
         substr == "-inf" || substr == "+inf" || substr == "nan" ||
         substr == "inf" || substr == "inff") {
         if (substr == "nan" || substr == "nanf") {
-            fvalue = std::nanf("");
-            dvalue = std::nan("");
+            fvalue = std::numeric_limits<float>::quiet_NaN();
+            dvalue = std::numeric_limits<double>::quiet_NaN();
             flag += 1;
         } else if (substr[0] == '-') {
             fvalue = -std::numeric_limits<float>::infinity();
