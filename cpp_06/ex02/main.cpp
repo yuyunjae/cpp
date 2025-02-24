@@ -70,4 +70,10 @@ int main(void) {
     std::cout << "--------------------- Identify class type by reference "
                  "---------------------\n";
     identify(*randomClass);
+
+    std::cout << "--------------------- Error test "
+                 "---------------------\n";
+    Base base;
+    identify(&base);
+    identify(base);
 }

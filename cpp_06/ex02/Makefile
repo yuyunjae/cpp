@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := all
 CPP := c++
-CPPFLAGS := -std=c++98 -Wall -Wextra -Werror -MMD -MP
-# CPPFLAGS := -std=c++14 -Wall -Wextra -Werror -MMD -MP
+# CPPFLAGS := -std=c++98 -Wall -Wextra -Werror -MMD -MP
+CPPFLAGS := -std=c++14 -Wall -Wextra -Werror -MMD -MP
 NAME := IdentifyType
 SRCS :=	Base.cpp 	\
 		A.cpp	\
