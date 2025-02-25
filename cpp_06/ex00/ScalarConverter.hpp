@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <cerrno>
+#include <climits>
 #include <cmath>
 #include <iomanip>
 #include <iostream>
